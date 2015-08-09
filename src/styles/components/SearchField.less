@@ -1,0 +1,57 @@
+.SearchField {
+	position: relative;
+
+	> input {
+		height: 44px;
+		width: 100%;
+		outline: 0;
+		border: 1px solid fade(#222, 10%);
+		border-radius: 4px;
+		background-color: transparent;
+		padding: 0 20px 2px 0;
+		font-size: 14px;
+		color: fade(#222, 70%);
+		transition: padding-left .3s @easing;
+	}
+
+	> svg {
+		width: 16px;
+		height: 16px;
+		color: fade(#222, 15%);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -8px 0 0 -8px;
+		transition: transform .3s @easing;
+		pointer-events: none;
+	}
+
+	&:not(.active) > svg {
+		transform: none !important;
+	}
+
+	&:hover,
+	&.active {
+
+		> input {
+			border-color: fade(#222, 15%);
+		}
+
+		> svg {
+			color: fade(#222, 20%);
+		}
+	}
+
+	&.active {
+
+		> input {
+			padding-left: 44px !important;
+			background-color: #fff;
+		}
+
+		> svg {
+			transform: translateX(-150px);
+			color: fade(#222, 20%);
+		}
+	}
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="List-Concept-2" sketch:type="MSArtboardGroup" transform="translate(-291.000000, -443.000000)" stroke="currentColor" stroke-linejoin="round">
+            <g id="Group-Copy-3" sketch:type="MSLayerGroup" transform="translate(290.000000, 376.000000)">
+                <g id="Group" transform="translate(2.000000, 68.000000)" sketch:type="MSShapeGroup">
+                    <path d="M2.32226667,4.33333333 L5.32226667,4.33333333" id="Stroke-472" stroke-linecap="round"></path>
+                    <path d="M2.32226667,6.33333333 L7.6556,6.33333333" id="Stroke-473" stroke-linecap="round"></path>
+                    <path d="M2.32226667,8.33333333 L6.32226667,8.33333333" id="Stroke-474" stroke-linecap="round"></path>
+                    <path d="M2.32226667,10.3333333 L5.6556,10.3333333" id="Stroke-475" stroke-linecap="round"></path>
+                    <path d="M15.6666667,11.6666667 C15.6666667,13.876 13.8746667,15.6666667 11.6666667,15.6666667 C9.45666667,15.6666667 7.66666667,13.876 7.66666667,11.6666667 C7.66666667,9.45733333 9.45666667,7.66666667 11.6666667,7.66666667 C13.8746667,7.66666667 15.6666667,9.45733333 15.6666667,11.6666667 L15.6666667,11.6666667 Z" id="Stroke-476"></path>
+                    <path d="M11.6666667,13.3333333 L11.6666667,10" id="Stroke-477" stroke-linecap="round"></path>
+                    <path d="M10.3333333,12 L11.6666667,13.3333333 L13,12" id="Stroke-478" stroke-linecap="round"></path>
+                    <path d="M7.33333333,14.3333333 L0.333333333,14.3333333 L0.333333333,0.333333333 L7.66666667,0.333333333 L11,3.66666667 L11,6.66666667" id="Stroke-479"></path>
+                    <path d="M7.66666667,0.333333333 L7.66666667,3.66666667 L11,3.66666667" id="Stroke-480" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

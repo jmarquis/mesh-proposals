@@ -1,0 +1,86 @@
+.MainMenu {
+	flex: none;
+	width: 250px;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-flow: column nowrap;
+
+	> header {
+		flex: none;
+		display: flex;
+		height: 96px;
+		padding: 30px 30px 26px 40px;
+
+		> figure {
+			margin: 0;
+			width: 40px;
+			height: 40px;
+			border-radius: 100%;
+			background-color: #eee;
+		}
+
+		> div {
+			flex: 1;
+			font-size: 20px;
+			height: 40px;
+			line-height: 38px;
+			padding-left: 13px;
+		}
+	}
+
+	> ul {
+		margin: 0;
+		padding: 0 30px 30px 40px;
+		list-style: none;
+		flex: auto;
+		overflow-y: auto;
+
+		> li {
+			font-size: 16px;
+			line-height: 2em;
+
+			&.separator {
+				height: 16px;
+			}
+
+			> a {
+				color: fade(#222, 70%);
+				text-decoration: none;
+
+				&:hover {
+					color: #222;
+				}
+
+				&.active {
+					color: #222;
+					.bold-weight;
+				}
+			}
+		}
+	}
+
+	> footer {
+		flex: none;
+		height: 90px;
+		padding: 30px 30px 30px 40px;
+		display: flex;
+
+		> figure {
+			margin: 0;
+			width: 30px;
+			height: 30px;
+			border-radius: 100%;
+			background-color: #eee;
+		}
+
+		> div {
+			flex: 1;
+			height: 30px;
+			font-size: 14px;
+			color: fade(#222, 70%);
+			line-height: 28px;
+			padding-left: 10px;
+		}
+	}
+}

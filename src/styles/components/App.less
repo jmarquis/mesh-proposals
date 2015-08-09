@@ -1,0 +1,19 @@
+.App {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #fafafa;
+	display: flex;
+	flex-flow: row nowrap;
+
+	@media (max-width: 1199px) {
+		left: -250px;
+		transition: transform .3s @easing;
+
+		.menu-visible & {
+			transform: translateX(250px);
+		}
+	}
+}
