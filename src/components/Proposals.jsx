@@ -1,3 +1,5 @@
+import "../styles/components/Proposals";
+
 import React from "react";
 
 import { getRelativeDateTime, getLatestRecord, getLatestTimestamp } from "../utils/dateTimeUtils";
@@ -10,7 +12,10 @@ import ProposalActions from "../actions/ProposalActions";
 import { Link } from "react-router";
 import Icon from "./Icon";
 import SearchField from "./SearchField";
-import ScrollList from "./ScrollList";
+import ScrollPane from "./ScrollPane";
+
+import menuIcon from "../icons/menu.svg";
+import newProposalIcon from "../icons/new-proposal.svg";
 
 export default class Proposals extends React.Component {
 
@@ -29,7 +34,7 @@ export default class Proposals extends React.Component {
 			let latestRecord = getLatestRecord(historyRecords);
 			return (
 				<div className="status">
-					<Icon src={getStatusIcon(latestRecord.status)}/>
+					<Icon svg={getStatusIcon(latestRecord.status)}/>
 					<span className="description">{capitalize(latestRecord.status)}</span> by <span className="person">{latestRecord.person}</span>
 				</div>
 			);
@@ -43,7 +48,7 @@ export default class Proposals extends React.Component {
 					<header>
 						<section className="nav">
 							<section className="menu-toggle">
-								<a><Icon src="menu"/>PROPOSALS</a>
+								<a><Icon svg={menuIcon}/>PROPOSALS</a>
 							</section>
 							<SearchField/>
 						</section>
@@ -61,25 +66,27 @@ export default class Proposals extends React.Component {
 								</div>
 							</section>
 							<section className="actions">
-								<Link to="/proposals/new"><Icon src="new-proposal"/></Link>
+								<Link to="/proposals/new"><Icon svg={newProposalIcon}/></Link>
 							</section>
 						</section>
 					</header>
-					<ScrollList items={this.state.proposals}>
-						{Object.keys(this.state.proposals).map((key) => {
-							return (
-								<li key={key} data-key={key}>
-									<Link to={`/proposals/${key}`}>
-										<div className="meta">
-											<div className="title">{this.state.proposals[key].title}</div>
-											<div className="timestamp">{getRelativeDateTime(getLatestTimestamp(this.state.proposals[key].history))}</div>
-										</div>
-										{this.getStatus(this.state.proposals[key].history)}
-									</Link>
-								</li>
-							);
-						})}
-					</ScrollList>
+					<ScrollPane>
+						<ul>
+							{Object.keys(this.state.proposals).map((key) => {
+								return (
+									<li key={key} data-key={key}>
+										<Link to={`/proposals/${key}`}>
+											<div className="meta">
+												<div className="title">{this.state.proposals[key].title}</div>
+												<div className="timestamp">{getRelativeDateTime(getLatestTimestamp(this.state.proposals[key].history))}</div>
+											</div>
+											{this.getStatus(this.state.proposals[key].history)}
+										</Link>
+									</li>
+								);
+							})}
+						</ul>
+					</ScrollPane>
 				</section>
 				<section className="detail-pane">
 					{this.props.children}

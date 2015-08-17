@@ -1,7 +1,10 @@
+import "../styles/components/SearchField";
+
 import React from "react";
 import $ from "jquery";
 
 import Icon from "./Icon";
+import searchIcon from "../icons/search.svg";
 
 export default class SearchField extends React.Component {
 
@@ -42,7 +45,7 @@ export default class SearchField extends React.Component {
 		return (
 			<div ref="el" className={["SearchField", this.state.focus || this.state.value ? "active" : ""].join(" ")}>
 				<input type="text" ref="field" value={this.state.value} onFocus={this.setFocus} onBlur={this.setFocus} onChange={this.setValue}/>
-				<Icon ref="icon" src="search"/>
+				<Icon ref="icon" svg={searchIcon}/>
 			</div>
 		);
 	}

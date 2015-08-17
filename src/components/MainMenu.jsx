@@ -1,3 +1,5 @@
+import "../styles/components/MainMenu";
+
 import React from "react";
 import { Link } from "react-router";
 

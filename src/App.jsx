@@ -1,3 +1,8 @@
+import "./styles/externals";
+import "./styles/base";
+import "./styles/text";
+import "./styles/components/App";
+
 import React from "react";
 import ReactDOM from "react-dom";
 

@@ -1,10 +1,12 @@
+import "../styles/components/ScrollPane";
+
 import React from "react";
 
 import { Link } from "react-router";
 
-export default class ScrollList extends React.Component {
+export default class ScrollPane extends React.Component {
 
-	handleListScroll = (event) => {
+	handleScroll = (event) => {
 		if (event.target.scrollTop === 0 && this.shadowOpacity !== 0) {
 			this.shadowOpacity = 0;
 			this.refs.shadow.style.cssText = "opacity: 0";
@@ -19,11 +21,11 @@ export default class ScrollList extends React.Component {
 
 	render () {
 		return (
-			<div className="ScrollList">
+			<div className="ScrollPane">
 				<div className="shadow" ref="shadow"></div>
-				<ul onScroll={this.handleListScroll} ref="list">
+				<div onScroll={this.handleScroll} ref="contents">
 					{this.props.children}
-				</ul>
+				</div>
 			</div>
 		);
 	}

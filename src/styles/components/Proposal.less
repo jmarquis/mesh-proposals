@@ -1,45 +1,52 @@
+@import "../constants";
+
 .Proposal {
-	padding: 30px 40px;
 	overflow-y: auto;
+	padding: 30px 40px;
+	flex: auto;
 
-	> .title {
-		font-size: 28px;
-		line-height: 30px;
-		margin-bottom: 20px;
-	}
+	> .meta {
 
-	> .history {
-		list-style: none;
-		margin: 0;
-		padding: 0;
+		> .title {
+			font-size: 28px;
+			line-height: 30px;
+			margin-bottom: 20px;
+		}
 
-		> li {
-			margin: 0 0 7px;
+		> .history {
+			list-style: none;
+			margin: 0;
 			padding: 0;
-			font-size: 14px;
-			line-height: 1.5;
-			color: fade(#222, 50%);
 
-			> svg {
-				width: 17px;
-				height: 17px;
-				vertical-align: middle;
-				margin: -1px 8px 0 0;
-				opacity: .7;
-			}
+			> li {
+				margin: 0 0 7px;
+				padding: 0;
+				font-size: 14px;
+				line-height: 1.5;
+				color: fade(#222, 50%);
 
-			> .description {
-				text-transform: capitalize;
-				font-weight: 700;
-			}
+				> .Icon {
+					display: inline-block;
+					width: 17px;
+					height: 17px;
+					vertical-align: middle;
+					margin: -1px 8px 0 0;
+					opacity: .7;
+				}
 
-			> time {
-				margin-left: 10px;
-				color: fade(#222, 30%);
-			}
+				> .description {
+					text-transform: capitalize;
+					font-weight: 700;
+				}
 
-			&:first-child {
-				color: #222;
+				> time {
+					margin-left: 10px;
+					color: fade(#222, 30%);
+				}
+
+				&:first-child {
+					color: #222;
+				}
 			}
 		}
 	}
@@ -47,9 +54,45 @@
 	> .proposal {
 		margin: 10px 0 0;
 
+		&.sticky-menu {
+			padding-top: 104px;
+
+			> menu {
+				position: fixed;
+				top: 0;
+				width: 100%;
+				margin-left: -20px;
+				padding-left: 20px;
+			}
+		}
+
 		> menu {
 			margin: 0;
 			padding: 30px 0;
+			background-color: #fafafa;
+			position: relative;
+			z-index: 100;
+
+			&::before {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				box-shadow: 0 0 10px fade(#222, 20%);
+				height: 10px;
+			}
+
+			&::after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: -20px;
+				right: -20px;
+				height: 20px;
+				background-color: #fafafa;
+
+			}
 
 			> a {
 				display: inline-block;
@@ -59,7 +102,7 @@
 				color: @purple;
 				opacity: .7;
 
-				> svg {
+				> .Icon {
 					display: inline-block;
 					vertical-align: middle;
 					width: 17px;

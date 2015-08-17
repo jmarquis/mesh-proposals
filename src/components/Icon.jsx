@@ -1,10 +1,12 @@
 import React from "react";
 
+import "../styles/components/Icon";
+
 export default class Icon extends React.Component {
 
 	render () {
 		return (
-			<svg ref="el" dangerouslySetInnerHTML={{ __html: `<use xlink:href="/icons/icons.svg#${this.props.src}"/>` }}></svg>
+			<div ref="el" className="Icon" dangerouslySetInnerHTML={{__html: this.props.svg}}></div>
 		);
 	}
 

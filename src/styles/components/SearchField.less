@@ -1,3 +1,5 @@
+@import "../constants";
+
 .SearchField {
 	position: relative;
 
@@ -11,10 +13,10 @@
 		padding: 0 20px 2px 0;
 		font-size: 14px;
 		color: fade(#222, 70%);
-		transition: padding-left .3s @easing;
+		transition: padding-left .3s @easing, background-color .1s @easing;
 	}
 
-	> svg {
+	> .Icon {
 		width: 16px;
 		height: 16px;
 		color: fade(#222, 15%);
@@ -26,7 +28,7 @@
 		pointer-events: none;
 	}
 
-	&:not(.active) > svg {
+	&:not(.active) > .Icon {
 		transform: none !important;
 	}
 
@@ -37,7 +39,7 @@
 			border-color: fade(#222, 15%);
 		}
 
-		> svg {
+		> .Icon {
 			color: fade(#222, 20%);
 		}
 	}
@@ -49,7 +51,7 @@
 			background-color: #fff;
 		}
 
-		> svg {
+		> .Icon {
 			transform: translateX(-150px);
 			color: fade(#222, 20%);
 		}
