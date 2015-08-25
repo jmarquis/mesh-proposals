@@ -23,7 +23,7 @@ export default class ScrollPane extends React.Component {
 		return (
 			<div className="ScrollPane">
 				<div className="shadow" ref="shadow"></div>
-				<div onScroll={this.handleScroll} ref="contents">
+				<div onScroll={this.handleScroll} className="contents" ref="contents">
 					{this.props.children}
 				</div>
 			</div>

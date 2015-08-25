@@ -15,6 +15,10 @@ class ProposalActions {
 		this.dispatch("update", proposals);
 	}
 
+	updateSectionContents (proposalId, sectionId, html) {
+		this.proposalsRef.child(proposalId).child(sectionId).update({ html });
+	}
+
 }
 
 export const proposalActions = new ProposalActions();

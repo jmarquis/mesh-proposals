@@ -8,9 +8,11 @@
   "author": "Jeremy Marquis <jeremy@knapsackcreative.com>",
   "dependencies": {
     "firebase": "^2.2.9",
+    "flummox": "^3.5.2",
     "jquery": "^2.1.4",
     "moment": "^2.10.6",
     "postal": "^1.0.6",
+    "quill": "^0.20.0",
     "react": "^0.14.0-beta3",
     "react-dom": "^0.14.0-beta3",
     "react-router": "^1.0.0-beta3"
