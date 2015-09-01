@@ -7,7 +7,7 @@ var path = require("path");
 module.exports = {
 
 	entry: {
-		js: "./src/App.jsx",
+		js: "./src/index.jsx",
 		html: "./src/index.html",
 	},
 

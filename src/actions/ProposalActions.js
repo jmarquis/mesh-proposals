@@ -1,8 +1,4 @@
-import { actions } from "../flux";
-import { firebaseRef, initializeWhenConnected } from "../firebase";
-
-@actions("proposals")
-class ProposalActions {
+export default class ProposalActions {
 
 	initialize () {
 		this.proposalsRef = firebaseRef.child("proposals");
@@ -12,7 +8,7 @@ class ProposalActions {
 	}
 
 	updateProposals (proposals) {
-		this.dispatch("update", proposals);
+		return { proposals };
 	}
 
 	updateSectionContents (proposalId, sectionId, html) {
@@ -21,5 +17,11 @@ class ProposalActions {
 
 }
 
-export const proposalActions = new ProposalActions();
-initializeWhenConnected(proposalActions);
+
+
+export function updateProposals (proposals) {
+	return {
+		type: "UPDATE_PROPOSALS",
+		proposals
+	}
+}

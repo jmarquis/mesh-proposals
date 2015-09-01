@@ -2,15 +2,12 @@ import "../styles/components/Proposal";
 
 import React from "react";
 import $ from "jquery";
+import { connect } from "react-redux";
 
 import Icon from "./Icon";
 
 import { getStatusIcon } from "../utils/proposalUtils";
 import { getRelativeDateTime } from "../utils/dateTimeUtils";
-
-import ProposalStore from "../stores/ProposalStore";
-import ViewActions from "../actions/ViewActions";
-import ViewStore from "../stores/ViewStore";
 
 import ScrollPane from "./ScrollPane";
 import ProposalDocument from "./ProposalDocument";
@@ -21,40 +18,26 @@ import archiveIcon from "../icons/archive.svg";
 
 export default class Proposal extends React.Component {
 
-	constructor () {
-		super();
-		this.state = {};
-	}
-
 	toggleEditMode = (editing) => {
 		this.setState({ editing });
 	}
 
-	componentDidMount () {
-
-		this.setState({
-			proposal: ProposalStore.getProposal(this.props.params.proposalId),
-			editing: false
-		});
-
-		ProposalStore.addChangeHandler(() => this.setState({ proposal: ProposalStore.getProposal(this.props.params.proposalId) }));
-
-	}
-
 	componentDidUpdate () {
 
-		this.toggleFullscreen(this.state.editing);
+		this.toggleFullscreen(this.props.editing);
 
 	}
 
 	render () {
 
-		if (!this.state["proposal"]) return <div className="Proposal"></div>;
+		const { proposal, editing } = this.props;
+
+		if (!proposal) return <div className="Proposal"></div>;
 
 		return (
-			<div className={ "Proposal" + (this.state.editing ? " editing" : "") } ref="el">
+			<div className={ "Proposal" + (editing ? " editing" : "") } ref="el">
 				{(() => {
-					if (this.state.editing) {
+					if (editing) {
 						return (
 							<menu>
 								<a className="primary" onClick={this.toggleEditMode.bind(this, false)}>Done</a>
@@ -73,20 +56,20 @@ export default class Proposal extends React.Component {
 				})()}
 				<ScrollPane>
 					<section className="meta">
-						<div className="title">{this.state.proposal.title}</div>
+						<div className="title">{proposal.title}</div>
 						<ol className="history">
-							{Object.keys(this.state.proposal.history).sort().reverse().map((timestamp) => {
+							{Object.keys(proposal.history).sort().reverse().map((timestamp) => {
 								return (
 									<li key={timestamp}>
-										<Icon svg={getStatusIcon(this.state.proposal.history[timestamp].status)}/>
-										<span className="description">{this.state.proposal.history[timestamp].status}</span> by <span className="person">{this.state.proposal.history[timestamp].person}</span>
+										<Icon svg={getStatusIcon(proposal.history[timestamp].status)}/>
+										<span className="description">{proposal.history[timestamp].status}</span> by <span className="person">{proposal.history[timestamp].person}</span>
 										<time dateTime="{timestamp}">{getRelativeDateTime(timestamp)}</time>
 									</li>
 								);
 							})}
 						</ol>
 					</section>
-					<ProposalDocument proposal={this.state.proposal} proposalId={this.props.params.proposalId} editing={this.state.editing}/>
+					<ProposalDocument proposal={proposal} proposalId={this.props.params.proposalId} editing={this.state.editing}/>
 				</ScrollPane>
 			</div>
 		);

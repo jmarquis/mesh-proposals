@@ -38,6 +38,8 @@ export default class SearchField extends React.Component {
 	}
 
 	setValue = (event) => {
+		const { dispatch, searchProposals } = this.props;
+		dispatch(searchProposals(event.nativeEvent.target.value));
 		this.setState({ value: event.nativeEvent.target.value });
 	}
 

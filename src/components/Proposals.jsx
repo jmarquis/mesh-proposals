@@ -1,47 +1,31 @@
 import "../styles/components/Proposals";
 
 import React from "react";
+import { connect } from "react-redux";
 
 import { getRelativeDateTime, getLatestRecord, getLatestTimestamp } from "../utils/dateTimeUtils";
 import { capitalize } from "../utils/stringUtils";
 import { getStatusIcon } from "../utils/proposalUtils";
-
-import ProposalStore from "../stores/ProposalStore";
-import ProposalActions from "../actions/ProposalActions";
 
 import { Link } from "react-router";
 import Icon from "./Icon";
 import SearchField from "./SearchField";
 import ScrollPane from "./ScrollPane";
 
+import { listenForProposals, filterProposals, searchProposals } from "../actions/proposals";
+
 import menuIcon from "../icons/menu.svg";
 import newProposalIcon from "../icons/new-proposal.svg";
 
-export default class Proposals extends React.Component {
-
-	constructor (props) {
-		super(props);
-		this.state = { proposals: ProposalStore.getAllProposals() };
-		this.shadowOpacity = 0;
-	}
+class Proposals extends React.Component {
 
 	componentDidMount () {
-		ProposalStore.addChangeHandler(() => this.setState({ proposals: ProposalStore.getAllProposals() }));
-	}
-
-	getStatus (historyRecords) {
-		if (historyRecords) {
-			let latestRecord = getLatestRecord(historyRecords);
-			return (
-				<div className="status">
-					<Icon svg={getStatusIcon(latestRecord.status)}/>
-					<span className="description">{capitalize(latestRecord.status)}</span> by <span className="person">{latestRecord.person}</span>
-				</div>
-			);
-		}
+		const { dispatch } = this.props;
+		dispatch(listenForProposals());
 	}
 
 	render () {
+		const { dispatch, proposals, proposalFilter } = this.props;
 		return (
 			<div className="Proposals" ref="el">
 				<section className="list-pane">
@@ -50,12 +34,12 @@ export default class Proposals extends React.Component {
 							<section className="menu-toggle">
 								<a><Icon svg={menuIcon}/>PROPOSALS</a>
 							</section>
-							<SearchField/>
+							<SearchField dispatch={dispatch} searchProposals={searchProposals}/>
 						</section>
 						<section className="toolbar">
 							<section className="filter">
 								<div>
-									<select value="all">
+									<select value={proposalFilter} onChange={(event) => dispatch(filterProposals(event.target.value))}>
 										<option value="all">All active proposals</option>
 										<option value="draft">Draft</option>
 										<option value="sent">Sent</option>
@@ -72,15 +56,15 @@ export default class Proposals extends React.Component {
 					</header>
 					<ScrollPane>
 						<ul>
-							{Object.keys(this.state.proposals).map((key) => {
+							{Object.keys(proposals).map((key) => {
 								return (
 									<li key={key} data-key={key}>
 										<Link to={`/proposals/${key}`}>
 											<div className="meta">
-												<div className="title">{this.state.proposals[key].title}</div>
-												<div className="timestamp">{getRelativeDateTime(getLatestTimestamp(this.state.proposals[key].history))}</div>
+												<div className="title">{proposals[key].title}</div>
+												<div className="timestamp">{getRelativeDateTime(getLatestTimestamp(proposals[key].history))}</div>
 											</div>
-											{this.getStatus(this.state.proposals[key].history)}
+											{getStatus(proposals[key].history)}
 										</Link>
 									</li>
 								);
@@ -89,10 +73,59 @@ export default class Proposals extends React.Component {
 					</ScrollPane>
 				</section>
 				<section className="detail-pane">
-					{this.props.children}
 				</section>
 			</div>
 		);
 	}
 
 }
+
+function getStatus (historyRecords) {
+	if (historyRecords) {
+		let latestRecord = getLatestRecord(historyRecords);
+		return (
+			<div className="status">
+				<Icon svg={getStatusIcon(latestRecord.status)}/>
+				<span className="description">{capitalize(latestRecord.status)}</span> by <span className="person">{latestRecord.person}</span>
+			</div>
+		);
+	}
+}
+
+export default connect(state => {
+
+	let { proposals, proposalFilter, proposalQuery } = state;
+
+	if (proposalFilter !== "all") {
+		let filteredProposals = {};
+		for (let id in proposals) {
+			if (proposals.hasOwnProperty(id)) {
+				if (proposals[id].history) {
+					let timestamps = Object.keys(proposals[id].history);
+					if (proposals[id].history[timestamps.sort()[timestamps.length - 1]].status === proposalFilter) {
+						filteredProposals[id] = proposals[id];
+					}
+				}
+			}
+		}
+		proposals = filteredProposals;
+	}
+
+	if (proposalQuery) {
+		let filteredProposals = {};
+		for (let id in proposals) {
+			if (proposals.hasOwnProperty(id)) {
+				if (proposals[id].title.toLowerCase().indexOf(proposalQuery.toLowerCase()) !== -1) {
+					filteredProposals[id] = proposals[id];
+				}
+			}
+		}
+		proposals = filteredProposals;
+	}
+
+	return {
+		proposals,
+		proposalFilter
+	};
+
+})(Proposals);
