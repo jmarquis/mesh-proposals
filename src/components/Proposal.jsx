@@ -16,23 +16,27 @@ import editIcon from "../icons/edit.svg";
 import sendIcon from "../icons/send.svg";
 import archiveIcon from "../icons/archive.svg";
 
+import { toggleEditing } from "../actions/proposals";
+
+@connect(state => {
+
+	let { proposals, router, editing, sectionUpdating } = state;
+
+	return {
+		proposal: proposals[router.params.proposalId],
+		proposalId: router.params.proposalId,
+		editing,
+		sectionUpdating
+	};
+
+})
 export default class Proposal extends React.Component {
-
-	toggleEditMode = (editing) => {
-		this.setState({ editing });
-	}
-
-	componentDidUpdate () {
-
-		this.toggleFullscreen(this.props.editing);
-
-	}
 
 	render () {
 
-		const { proposal, editing } = this.props;
+		const { proposalId, proposal, editing, sectionUpdating, dispatch } = this.props;
 
-		if (!proposal) return <div className="Proposal"></div>;
+		if (!proposalId || !proposal) return <div className="Proposal"></div>;
 
 		return (
 			<div className={ "Proposal" + (editing ? " editing" : "") } ref="el">
@@ -40,14 +44,14 @@ export default class Proposal extends React.Component {
 					if (editing) {
 						return (
 							<menu>
-								<a className="primary" onClick={this.toggleEditMode.bind(this, false)}>Done</a>
-								<small>Changes are saved as they are made.</small>
+								<a className="primary" onClick={() => dispatch(toggleEditing(false))}>Done</a>
+								<small>{sectionUpdating ? "Saving..." : ""}</small>
 							</menu>
 						);
 					} else {
 						return (
 							<menu>
-								<a className="secondary" onClick={this.toggleEditMode.bind(this, true)}><Icon svg={editIcon}/>Edit</a>
+								<a className="secondary" onClick={() => dispatch(toggleEditing(true))}><Icon svg={editIcon}/>Edit</a>
 								<a className="tertiary"><Icon svg={sendIcon}/>Re-send</a>
 								<a className="tertiary"><Icon svg={archiveIcon}/>Archive</a>
 							</menu>
@@ -55,6 +59,7 @@ export default class Proposal extends React.Component {
 					}
 				})()}
 				<ScrollPane>
+
 					<section className="meta">
 						<div className="title">{proposal.title}</div>
 						<ol className="history">
@@ -69,7 +74,9 @@ export default class Proposal extends React.Component {
 							})}
 						</ol>
 					</section>
-					<ProposalDocument proposal={proposal} proposalId={this.props.params.proposalId} editing={this.state.editing}/>
+
+					<ProposalDocument/>
+
 				</ScrollPane>
 			</div>
 		);

@@ -17,7 +17,45 @@ import { listenForProposals, filterProposals, searchProposals } from "../actions
 import menuIcon from "../icons/menu.svg";
 import newProposalIcon from "../icons/new-proposal.svg";
 
-class Proposals extends React.Component {
+@connect(state => {
+
+	let { proposals, proposalFilter, proposalQuery, editing } = state;
+
+	if (proposalFilter !== "all") {
+		let filteredProposals = {};
+		for (let id in proposals) {
+			if (proposals.hasOwnProperty(id)) {
+				if (proposals[id].history) {
+					let timestamps = Object.keys(proposals[id].history);
+					if (proposals[id].history[timestamps.sort()[timestamps.length - 1]].status === proposalFilter) {
+						filteredProposals[id] = proposals[id];
+					}
+				}
+			}
+		}
+		proposals = filteredProposals;
+	}
+
+	if (proposalQuery) {
+		let filteredProposals = {};
+		for (let id in proposals) {
+			if (proposals.hasOwnProperty(id)) {
+				if (proposals[id].title.toLowerCase().indexOf(proposalQuery.toLowerCase()) !== -1) {
+					filteredProposals[id] = proposals[id];
+				}
+			}
+		}
+		proposals = filteredProposals;
+	}
+
+	return {
+		proposals,
+		proposalFilter,
+		editing
+	};
+
+})
+export default class Proposals extends React.Component {
 
 	componentDidMount () {
 		const { dispatch } = this.props;
@@ -25,10 +63,10 @@ class Proposals extends React.Component {
 	}
 
 	render () {
-		const { dispatch, proposals, proposalFilter } = this.props;
+		const { dispatch, proposals, proposalFilter, editing } = this.props;
 		return (
 			<div className="Proposals" ref="el">
-				<section className="list-pane">
+				<section className={"list-pane" + (editing ? " disabled" : "")}>
 					<header>
 						<section className="nav">
 							<section className="menu-toggle">
@@ -73,6 +111,7 @@ class Proposals extends React.Component {
 					</ScrollPane>
 				</section>
 				<section className="detail-pane">
+					{this.props.children}
 				</section>
 			</div>
 		);
@@ -91,41 +130,3 @@ function getStatus (historyRecords) {
 		);
 	}
 }
-
-export default connect(state => {
-
-	let { proposals, proposalFilter, proposalQuery } = state;
-
-	if (proposalFilter !== "all") {
-		let filteredProposals = {};
-		for (let id in proposals) {
-			if (proposals.hasOwnProperty(id)) {
-				if (proposals[id].history) {
-					let timestamps = Object.keys(proposals[id].history);
-					if (proposals[id].history[timestamps.sort()[timestamps.length - 1]].status === proposalFilter) {
-						filteredProposals[id] = proposals[id];
-					}
-				}
-			}
-		}
-		proposals = filteredProposals;
-	}
-
-	if (proposalQuery) {
-		let filteredProposals = {};
-		for (let id in proposals) {
-			if (proposals.hasOwnProperty(id)) {
-				if (proposals[id].title.toLowerCase().indexOf(proposalQuery.toLowerCase()) !== -1) {
-					filteredProposals[id] = proposals[id];
-				}
-			}
-		}
-		proposals = filteredProposals;
-	}
-
-	return {
-		proposals,
-		proposalFilter
-	};
-
-})(Proposals);

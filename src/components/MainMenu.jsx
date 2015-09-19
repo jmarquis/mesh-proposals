@@ -2,12 +2,17 @@ import "../styles/components/MainMenu";
 
 import React from "react";
 import { Link } from "react-router";
+import { connect } from "react-redux";
 
+@connect(state => ({ editing: state.editing }))
 export default class MainMenu extends React.Component {
 
 	render () {
+
+		const { editing } = this.props;
+
 		return (
-			<menu className="MainMenu menu-pane">
+			<menu className={"MainMenu menu-pane" + (editing ? " disabled" : "")}>
 				<header>
 					<figure></figure>
 					<div>Knapsack</div>
@@ -26,6 +31,7 @@ export default class MainMenu extends React.Component {
 				</footer>
 			</menu>
 		);
+
 	}
 
 }
