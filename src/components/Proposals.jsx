@@ -97,7 +97,7 @@ export default class Proposals extends React.Component {
 							{Object.keys(proposals).map((key) => {
 								return (
 									<li key={key} data-key={key}>
-										<Link to={`/proposals/${key}`}>
+										<Link to={`/proposals/${key}`} activeClassName="current">
 											<div className="meta">
 												<div className="title">{proposals[key].title}</div>
 												<div className="timestamp">{getRelativeDateTime(getLatestTimestamp(proposals[key].history))}</div>

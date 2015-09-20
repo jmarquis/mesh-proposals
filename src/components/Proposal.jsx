@@ -40,40 +40,28 @@ export default class Proposal extends React.Component {
 
 		return (
 			<div className={ "Proposal" + (editing ? " editing" : "") } ref="el">
-				{(() => {
-					if (editing) {
-						return (
-							<menu>
-								<a className="primary" onClick={() => dispatch(toggleEditing(false))}>Done</a>
-								<small>{sectionUpdating ? "Saving..." : ""}</small>
-							</menu>
-						);
-					} else {
-						return (
-							<menu>
-								<a className="secondary" onClick={() => dispatch(toggleEditing(true))}><Icon svg={editIcon}/>Edit</a>
-								<a className="tertiary"><Icon svg={sendIcon}/>Re-send</a>
-								<a className="tertiary"><Icon svg={archiveIcon}/>Archive</a>
-							</menu>
-						);
-					}
-				})()}
+				<header>
+					<div className="title">{proposal.title}</div>
+					{(() => {
+						if (editing) {
+							return (
+								<menu>
+									<a className="primary" onClick={() => dispatch(toggleEditing(false))}>Done</a>
+									<small>{sectionUpdating ? "Saving..." : ""}</small>
+								</menu>
+							);
+						} else {
+							return (
+								<menu>
+									<a className="secondary" onClick={() => dispatch(toggleEditing(true))}><Icon svg={editIcon}/>Edit</a>
+									<a className="tertiary"><Icon svg={sendIcon}/>Re-send</a>
+									<a className="tertiary"><Icon svg={archiveIcon}/>Archive</a>
+								</menu>
+							);
+						}
+					})()}
+				</header>
 				<ScrollPane>
-
-					<section className="meta">
-						<div className="title">{proposal.title}</div>
-						<ol className="history">
-							{Object.keys(proposal.history).sort().reverse().map((timestamp) => {
-								return (
-									<li key={timestamp}>
-										<Icon svg={getStatusIcon(proposal.history[timestamp].status)}/>
-										<span className="description">{proposal.history[timestamp].status}</span> by <span className="person">{proposal.history[timestamp].person}</span>
-										<time dateTime="{timestamp}">{getRelativeDateTime(timestamp)}</time>
-									</li>
-								);
-							})}
-						</ol>
-					</section>
 
 					<ProposalDocument/>
 

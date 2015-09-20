@@ -18,12 +18,12 @@ export default class MainMenu extends React.Component {
 					<div>Knapsack</div>
 				</header>
 				<ul>
-					<li><Link to="/proposals">Proposals</Link></li>
-					<li><Link to="/proposals/archive">Archive</Link></li>
+					<li><Link to="/proposals" activeClassName="current">Proposals</Link></li>
+					<li><Link to="/proposals/archive" activeClassName="current">Archive</Link></li>
 					<li className="separator"></li>
-					<li><Link to="/templates">Templates</Link></li>
-					<li><Link to="/team">Team</Link></li>
-					<li><Link to="/settings">Settings</Link></li>
+					<li><Link to="/templates" activeClassName="current">Templates</Link></li>
+					<li><Link to="/team" activeClassName="current">Team</Link></li>
+					<li><Link to="/settings" activeClassName="current">Settings</Link></li>
 				</ul>
 				<footer>
 					<figure></figure>

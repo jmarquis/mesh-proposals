@@ -11,7 +11,7 @@
     "history": "^1.9.1",
     "jquery": "^2.1.4",
     "moment": "^2.10.6",
-    "quill": "^0.20.0",
+    "prosemirror": "git+https://github.com/ProseMirror/prosemirror.git",
     "react": "^0.14.0-rc1",
     "react-dom": "^0.14.0-rc1",
     "react-redux": "^2.1.2",

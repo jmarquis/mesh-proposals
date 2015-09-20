@@ -21,7 +21,7 @@ module.exports = {
 
 			{
 				test: /\.jsx?$/,
-				exclude: /node_modules/,
+				exclude: /node_modules(?!\/prosemirror)/,
 				loaders: [
 					"react-hot",
 					"babel?optional[]=es7.decorators&optional[]=es7.classProperties"
