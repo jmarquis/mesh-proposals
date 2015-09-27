@@ -6,7 +6,7 @@
 	flex: auto;
 	display: flex;
 	flex-flow: column nowrap;
-	background-color: #fafafa;
+	background-color: @offwhite;
 	transition-timing-function: @easing;
 	transition-duration: .5s;
 	transition-property: none;
@@ -34,7 +34,7 @@
 				.bold-weight;
 				letter-spacing: 1px;
 				color: @purple;
-				opacity: .7;
+				opacity: .8;
 
 				> .Icon {
 					display: inline-block;
@@ -80,7 +80,7 @@
 
 			> small {
 				font-size: 12px;
-				color: fade(#222, 50%);
+				color: fade(@black, 50%);
 				margin-left: 30px;
 				position: relative;
 				top: -1px;
@@ -109,7 +109,7 @@
 					padding: 0;
 					font-size: 14px;
 					line-height: 1.5;
-					color: fade(#222, 50%);
+					color: fade(@black, 50%);
 
 					> .Icon {
 						display: inline-block;
@@ -117,7 +117,7 @@
 						height: 17px;
 						vertical-align: middle;
 						margin: -1px 8px 0 0;
-						opacity: .7;
+						opacity: .75;
 					}
 
 					> .description {
@@ -127,7 +127,7 @@
 
 					> time {
 						margin-left: 10px;
-						color: fade(#222, 30%);
+						color: fade(@black, 30%);
 					}
 
 					&:first-child {
