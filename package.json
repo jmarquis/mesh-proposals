@@ -8,7 +8,7 @@
   "author": "Jeremy Marquis <jeremy@knapsackcreative.com>",
   "dependencies": {
     "firebase": "^2.3.0",
-    "history": "^1.11.0",
+    "history": "^1.11.1",
     "jquery": "^2.1.4",
     "moment": "^2.10.6",
     "prosemirror": "git+https://github.com/ProseMirror/prosemirror.git",

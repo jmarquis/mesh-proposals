@@ -7,19 +7,19 @@
 		height: 44px;
 		width: 100%;
 		outline: 0;
-		border: 1px solid fade(#222, 10%);
+		border: 1px solid fade(@black, 20%);
 		border-radius: 4px;
 		background-color: transparent;
 		padding: 0 20px 2px 0;
 		font-size: 14px;
-		color: fade(#222, 70%);
+		color: fade(@black, 90%);
 		transition: padding-left .3s @easing, background-color .1s @easing;
 	}
 
 	> .Icon {
 		width: 16px;
 		height: 16px;
-		color: fade(#222, 15%);
+		color: fade(@black, 25%);
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -36,11 +36,11 @@
 	&.active {
 
 		> input {
-			border-color: fade(#222, 15%);
+			border-color: fade(@black, 25%);
 		}
 
 		> .Icon {
-			color: fade(#222, 20%);
+			color: fade(@black, 30%);
 		}
 	}
 
@@ -48,12 +48,12 @@
 
 		> input {
 			padding-left: 44px !important;
-			background-color: #fff;
+			background-color: @white;
+			border-color: fade(@black, 20%);
 		}
 
 		> .Icon {
 			transform: translateX(-150px);
-			color: fade(#222, 20%);
 		}
 	}
 }

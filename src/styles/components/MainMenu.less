@@ -1,3 +1,4 @@
+@import (reference) "../constants";
 @import (reference) "../text";
 
 .MainMenu {
@@ -20,7 +21,7 @@
 			width: 40px;
 			height: 40px;
 			border-radius: 100%;
-			background-color: #eee;
+			background-color: @lightgray;
 		}
 
 		> div {
@@ -48,15 +49,15 @@
 			}
 
 			> a {
-				color: fade(#222, 70%);
+				color: fade(@black, 90%);
 				text-decoration: none;
 
 				&:hover {
-					color: #222;
+					color: @black;
 				}
 
 				&.current {
-					color: #222;
+					color: @black;
 					.bold-weight;
 				}
 			}
@@ -74,14 +75,14 @@
 			width: 30px;
 			height: 30px;
 			border-radius: 100%;
-			background-color: #eee;
+			background-color: @lightgray;
 		}
 
 		> div {
 			flex: 1;
 			height: 30px;
 			font-size: 14px;
-			color: fade(#222, 70%);
+			color: fade(@black, 70%);
 			line-height: 28px;
 			padding-left: 10px;
 		}

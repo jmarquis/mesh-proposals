@@ -65,6 +65,18 @@ export default class Proposal extends React.Component {
 
 					<ProposalDocument/>
 
+					<ol className="history">
+						{Object.keys(proposal.history).sort().reverse().map((timestamp) => {
+							return (
+								<li key={timestamp}>
+									<Icon svg={getStatusIcon(proposal.history[timestamp].status)}/>
+									<span className="description">{proposal.history[timestamp].status}</span> by <span className="person">{proposal.history[timestamp].person}</span>
+									<time dateTime="{timestamp}">{getRelativeDateTime(timestamp)}</time>
+								</li>
+							);
+						})}
+					</ol>
+
 				</ScrollPane>
 			</div>
 		);
