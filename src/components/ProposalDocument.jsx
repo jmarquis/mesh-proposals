@@ -28,7 +28,7 @@ export default class ProposalDocument extends React.Component {
 		if (!proposal) return <div className="ProposalDocument"/>;
 
 		return (
-			<div className="ProposalDocument hatteras-design">
+			<div className={"ProposalDocument hatteras-design" + (editing ? " editing" : "")}>
 				{Object.keys(proposal.sections).map((sectionId) => {
 					let section = proposal.sections[sectionId];
 					switch (section.type) {
@@ -51,7 +51,7 @@ export default class ProposalDocument extends React.Component {
 		if (this.timer) clearTimeout(this.timer);
 		this.timer = setTimeout(() => {
 			dispatch(updateSection(proposalId, sectionId, html));
-		}, 1000);
+		}, 500);
 
 	}
 

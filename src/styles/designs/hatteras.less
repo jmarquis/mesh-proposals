@@ -1,16 +1,109 @@
+@import (reference) "../constants";
+
 .ProposalDocument.hatteras-design {
-	padding: 30px 40px;
+	cursor: auto;
+
+	&.editing {
+		padding-bottom: 40px;
+	}
 
 	> section {
 
 		&.HtmlSection {
 
-			:first-child {
-				margin-top: 0;
+			> .contents,
+			> .editor > .ProseMirror > .ProseMirror-content  {
+				padding: 60px 30px 75px;
+				font-family: "open-sans", "Open Sans", Helvetica, Arial, sans-serif;
+				font-weight: 300;
+				color: #222;
+				cursor: auto;
+
+				::selection {
+					background-color: #eee;
+				}
+
+				h1 { // cover title
+					font-size: 64px;
+					letter-spacing: (-1em/64);
+					line-height: 1.25em;
+				}
+
+				h2 { // section titles
+					font-size: 36px;
+					line-height: 1.25;
+					margin: 0 0 .5em;
+				}
+
+				h3 {
+
+				}
+
+				p {
+					font-size: 18px;
+					line-height: 1.5em;
+					margin: 0 0 1em;
+				}
+
+				> :first-child {
+					margin-top: 0;
+				}
+
+				> :last-child {
+					margin-bottom: 0;
+				}
 			}
 
-			:last-child {
-				margin-bottom: 0;
+			> .AddSection {
+				position: relative;
+				background-color: @lightgray;
+				font-size: 0;
+				height: 2px;
+				transition: height .2s @easing, background-color .2s @easing;
+
+				&.open {
+					height: 128px;
+					background-color: #f5f5f5;
+				}
+
+				> a {
+					position: absolute;
+					top: -19px;
+					left: 50%;
+					margin-left: -20px;
+					width: 40px;
+					height: 40px;
+					background-color: @lightgray;
+					border-radius: 40px;
+					padding: 8px;
+					color: #fff;
+					transition: background-color .2s @easing, color .2s @easing;
+
+					&:hover {
+						background-color: #ddd;
+
+						&::after {
+							content: ""
+						}
+					}
+
+					> .Icon {
+						transition: transform .2s @easing;
+					}
+				}
+
+				&.open > a {
+					background-color: #f5f5f5;
+					color: fade(@purple, 80%);
+
+					&:hover {
+						color: @purple;
+					}
+
+					> .Icon {
+						transform: rotate(225deg);
+					}
+				}
 			}
 		}
 	}

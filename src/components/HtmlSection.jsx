@@ -2,12 +2,9 @@ import React from "react";
 import $ from "jquery";
 import { ProseMirror } from "prosemirror/src/edit";
 
+import AddSection from "./AddSection";
+
 export default class HtmlSection extends React.Component {
-
-	componentDidMount () {
-
-
-	}
 
 	componentDidUpdate () {
 		if (this.props.editing && !this.editor) {
@@ -30,7 +27,8 @@ export default class HtmlSection extends React.Component {
 	render () {
 		return (
 			<section className="HtmlSection">
-				{ this.props.editing ? <div ref="editor"></div> : <div dangerouslySetInnerHTML={{__html: this.props.data.html}}></div> }
+				{ this.props.editing ? <div ref="editor" className="editor"></div> : <div dangerouslySetInnerHTML={{__html: this.props.data.html}} className="contents"></div> }
+				{ this.props.editing && <AddSection/> }
 			</section>
 		);
 	}
