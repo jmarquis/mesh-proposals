@@ -66,3 +66,29 @@ export function updateSection (proposalId, sectionId, html) {
 		});
 	};
 }
+
+
+export function addSection (proposalId, previousSectionId, type) {
+	return (dispatch, getState) => {
+		const newSectionRef = firebaseRef.child("proposals").child(proposalId).child("sections").push();
+		const newSectionId = newSectionRef.key();
+		const order = getState().proposals[proposalId].sectionOrder || [];
+		const newOrder = [...order];
+		console.log("index to replace", previousSectionId);
+		console.log("position of index to replace", newOrder.indexOf(previousSectionId));
+		console.log("before", newOrder);
+		newOrder.splice(newOrder.indexOf(previousSectionId) + 1, 0, newSectionId);
+		console.log("after", newOrder);
+		firebaseRef.child("proposals").child(proposalId).update({
+			["sections/" + newSectionId]: { type },
+			sectionOrder: newOrder
+		});
+	};
+}
+
+
+export function rearrangeSections (proposalId, newOrder) {
+	return (dispatch, getState) => {
+		firebaseRef.child("proposals").child(proposalId).child("sectionOrder").set(newOrder);
+	};
+}

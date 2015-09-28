@@ -6,12 +6,23 @@ import AddSection from "./AddSection";
 
 export default class HtmlSection extends React.Component {
 
+	componentDidMount () {
+		this.initialize();
+		if (this.props.editing) {
+			this.editor.focus();
+		}
+	}
+
 	componentDidUpdate () {
+		this.initialize();
+	}
+
+	initialize = () => {
 		if (this.props.editing && !this.editor) {
 
 			this.editor = new ProseMirror({
 				place: this.refs.editor,
-				doc: this.props.data.html,
+				doc: this.props.data.html || "",
 				docFormat: "html"
 			});
 
@@ -28,7 +39,7 @@ export default class HtmlSection extends React.Component {
 		return (
 			<section className="HtmlSection">
 				{ this.props.editing ? <div ref="editor" className="editor"></div> : <div dangerouslySetInnerHTML={{__html: this.props.data.html}} className="contents"></div> }
-				{ this.props.editing && <AddSection/> }
+				<AddSection editing={this.props.editing} addSection={this.props.addSection}/>
 			</section>
 		);
 	}

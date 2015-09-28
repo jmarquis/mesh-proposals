@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import HtmlSection from "./HtmlSection";
 
-import { updateSection } from "../actions/proposals";
+import { updateSection, addSection, rearrangeSections } from "../actions/proposals";
 
 @connect(state => {
 
@@ -21,19 +21,29 @@ import { updateSection } from "../actions/proposals";
 })
 export default class ProposalDocument extends React.Component {
 
+	componentDidMount () {
+		this.normalizeOrder();
+	}
+
+	componentDidUpdate () {
+		this.normalizeOrder();
+	}
+
 	render () {
 
-		const { proposal, editing } = this.props;
+		const { proposalId, proposal, editing } = this.props;
 
 		if (!proposal) return <div className="ProposalDocument"/>;
 
 		return (
 			<div className={"ProposalDocument hatteras-design" + (editing ? " editing" : "")}>
-				{Object.keys(proposal.sections).map((sectionId) => {
+				{(proposal.sectionOrder || []).map((sectionId) => {
 					let section = proposal.sections[sectionId];
-					switch (section.type) {
-						case "html": return <HtmlSection data={section} editing={editing} onChange={this.handleChange.bind(this, sectionId)}/>;
-						default: return "";
+					if (section) {
+						switch (section.type) {
+							case "html": return <HtmlSection key={sectionId} data={section} editing={editing} onChange={this.handleChange.bind(this, sectionId)} addSection={this.addSection.bind(this, sectionId)}/>;
+							default: return "";
+						}
 					}
 				})}
 			</div>
@@ -52,6 +62,57 @@ export default class ProposalDocument extends React.Component {
 		this.timer = setTimeout(() => {
 			dispatch(updateSection(proposalId, sectionId, html));
 		}, 500);
+
+	}
+
+	addSection = (previousSectionId, type) => {
+
+		const { proposalId, dispatch } = this.props;
+		dispatch(addSection(proposalId, previousSectionId, type));
+
+	}
+
+	rearrange = (newOrder) => {
+
+		const { proposalId, dispatch } = this.props;
+		dispatch(rearrangeSections(proposalId, newOrder));
+
+	}
+
+	normalizeOrder = () => {
+
+		const { proposal } = this.props;
+		if (proposal) {
+			const unorderedSections = [];
+			Object.keys(proposal.sections).forEach((sectionId) => {
+				if (!proposal.sectionOrder || proposal.sectionOrder.indexOf(sectionId) === -1) {
+					unorderedSections.push(sectionId);
+				}
+			});
+			if (unorderedSections.length) {
+				if (proposal.sectionOrder) {
+					this.rearrange([...proposal.sectionOrder, ...unorderedSections]);
+				} else {
+					this.rearrange(unorderedSections);
+				}
+			} else {
+				if (proposal.sectionOrder) {
+					const nonexistantSections = [];
+					proposal.sectionOrder.forEach((sectionId) => {
+						if (!proposal.sections[sectionId]) {
+							nonexistantSections.push(sectionId);
+						}
+					});
+					if (nonexistantSections.length) {
+						const newOrder = [...proposal.sectionOrder];
+						nonexistantSections.forEach((sectionId) => {
+							newOrder.splice(newOrder.indexOf(sectionId), 1);
+						});
+						this.rearrange(newOrder);
+					}
+				}
+			}
+		}
 
 	}
 
