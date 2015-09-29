@@ -6,11 +6,19 @@ import AddSection from "./AddSection";
 
 export default class HtmlSection extends React.Component {
 
+	constructor () {
+		super();
+		this.state = {
+			title: ""
+		};
+	}
+
 	componentDidMount () {
 		this.initialize();
 		if (this.props.editing) {
-			this.editor.focus();
+			this.refs.titleField.focus();
 		}
+		this.setState({ title: this.props.data.title });
 	}
 
 	componentDidUpdate () {
@@ -36,16 +44,33 @@ export default class HtmlSection extends React.Component {
 	}
 
 	render () {
+		const { html } = this.props.data;
+		const { editing, addSection } = this.props;
+		const { title } = this.state;
 		return (
 			<section className="HtmlSection">
-				{ this.props.editing ? <div ref="editor" className="editor"></div> : <div dangerouslySetInnerHTML={{__html: this.props.data.html}} className="contents"></div> }
-				<AddSection editing={this.props.editing} addSection={this.props.addSection}/>
+				<div className="contents">
+					<h2>
+						{ editing ? <input type="text" ref="titleField" value={title} placeholder="Section Title" onChange={this.setTitle}/> : title }
+					</h2>
+					{ editing ? <div ref="editor" className="editor"></div> : <div dangerouslySetInnerHTML={{__html: html}} className="html"></div> }
+				</div>
+				<AddSection editing={editing} addSection={addSection}/>
 			</section>
 		);
 	}
 
-	handleChange = () => {
-		this.props.onChange(this.editor.getContent("html"));
+	setTitle = (event) => {
+		this.setState({ title: event.target.value });
+		this.handleChange(event.target.value);
+	}
+
+	handleChange = (title = this.state.title) => {
+		this.props.onChange({
+			type: "html",
+			title: title || "",
+			html: this.editor.getContent("html") || ""
+		});
 	}
 
 }

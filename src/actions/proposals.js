@@ -54,14 +54,10 @@ function toggleSectionUpdating (updating) {
 }
 
 
-export function updateSection (proposalId, sectionId, html) {
+export function updateSection (proposalId, sectionId, data) {
 	return (dispatch, getState) => {
 		dispatch(toggleSectionUpdating(true));
-		console.log("html", html);
-		firebaseRef.child("proposals").child(proposalId).child("sections").child(sectionId).update({
-			html
-		}, error => {
-			console.log(error);
+		firebaseRef.child("proposals").child(proposalId).child("sections").child(sectionId).update(data, error => {
 			dispatch(toggleSectionUpdating(false));
 		});
 	};
@@ -74,11 +70,7 @@ export function addSection (proposalId, previousSectionId, type) {
 		const newSectionId = newSectionRef.key();
 		const order = getState().proposals[proposalId].sectionOrder || [];
 		const newOrder = [...order];
-		console.log("index to replace", previousSectionId);
-		console.log("position of index to replace", newOrder.indexOf(previousSectionId));
-		console.log("before", newOrder);
 		newOrder.splice(newOrder.indexOf(previousSectionId) + 1, 0, newSectionId);
-		console.log("after", newOrder);
 		firebaseRef.child("proposals").child(proposalId).update({
 			["sections/" + newSectionId]: { type },
 			sectionOrder: newOrder

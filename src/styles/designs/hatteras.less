@@ -8,42 +8,59 @@
 
 	> section {
 
-		&.HtmlSection {
+		> .contents {
+			padding: 60px 30px 75px;
+			font-family: "open-sans", "Open Sans", Helvetica, Arial, sans-serif;
+			font-weight: 300;
+			font-size: 18px;
+			color: #222;
+			cursor: auto;
+			user-select: auto;
 
-			> .contents,
-			> .editor > .ProseMirror > .ProseMirror-content  {
-				padding: 60px 30px 75px;
-				font-family: "open-sans", "Open Sans", Helvetica, Arial, sans-serif;
+			::selection {
+				background-color: #eee;
+			}
+
+			h1 { // cover title
 				font-weight: 300;
-				color: #222;
-				cursor: auto;
-				user-select: auto;
+				font-size: 64px;
+				letter-spacing: (-1em/64);
+				line-height: 1.25em;
+			}
 
-				::selection {
-					background-color: #eee;
-				}
+			h2 { // section titles
+				font-weight: 300;
+				font-size: 36px;
+				line-height: 1.25;
+				margin: 0 0 .5em;
 
-				h1 { // cover title
-					font-size: 64px;
-					letter-spacing: (-1em/64);
-					line-height: 1.25em;
-				}
-
-				h2 { // section titles
-					font-size: 36px;
+				> input {
+					display: block;
+					border: 0;
+					box-shadow: none;
+					outline: 0;
+					padding: 0;
+					margin: 0;
+					width: 100%;
 					line-height: 1.25;
-					margin: 0 0 .5em;
+					height: 1.25em;
+					position: relative;
+					top: -2px;
 				}
+			}
 
-				h3 {
+			h3 {
 
-				}
+			}
 
-				p {
-					font-size: 18px;
-					line-height: 1.5em;
-					margin: 0 0 1em;
-				}
+			p {
+				font-size: 18px;
+				line-height: 1.5em;
+				margin: 0 0 1em;
+			}
+
+			> .html,
+			> .editor > .ProseMirror > .ProseMirror-content  {
 
 				> :first-child {
 					margin-top: 0;
@@ -52,6 +69,13 @@
 				> :last-child {
 					margin-bottom: 0;
 				}
+			}
+		}
+
+		&.HtmlSection {
+
+			> .contents {
+
 			}
 
 			> .AddSection {

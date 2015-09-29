@@ -1,0 +1,27 @@
+@import (reference) "../constants";
+
+.SectionList {
+	position: absolute;
+	top: 163px;
+	right: 100%;
+	margin-right: -10px;
+	z-index: 1000;
+	font-size: 16px;
+	font-weight: 400;
+
+	> ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		text-align: right;
+
+		> li {
+			color: fade(@black, 80%);
+			white-space: nowrap;
+
+			& + li {
+				margin-top: 1.25em;
+			}
+		}
+	}
+}

@@ -11,6 +11,7 @@ import { getRelativeDateTime } from "../utils/dateTimeUtils";
 
 import ScrollPane from "./ScrollPane";
 import ProposalDocument from "./ProposalDocument";
+import SectionList from "./SectionList";
 
 import editIcon from "../icons/edit.svg";
 import sendIcon from "../icons/send.svg";
@@ -78,6 +79,7 @@ export default class Proposal extends React.Component {
 					</ol>
 
 				</ScrollPane>
+				<SectionList/>
 			</div>
 		);
 

@@ -10,6 +10,7 @@
 	transition-timing-function: @easing;
 	transition-duration: .5s;
 	transition-property: none;
+	position: relative;
 
 	> header {
 		flex: none;
@@ -136,5 +137,9 @@
 				}
 			}
 		}
+	}
+
+	&:not(.editing) > .SectionList {
+		visibility: hidden;
 	}
 }
