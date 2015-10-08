@@ -17,12 +17,37 @@
 
 		> .SectionListItem {
 			white-space: nowrap;
-			color: fade(@black, 80%);
 			padding: 1.25em 0 0;
 
-			&:hover {
-				color: @black;
+			> a.delete {
+				display: inline-block;
+				width: 25px;
+				height: 26px;
+				padding: 5px;
+				margin: -5px 5px -5px 0;
+				vertical-align: middle;
+				position: relative;
+				top: -2px;
+				color: fade(@black, 25%);
+				visibility: hidden;
+
+				&:hover {
+					color: @red;
+				}
 			}
+
+			&:hover > a.delete {
+				visibility: visible;
+			}
+
+			> a.title {
+				color: fade(@black, 80%);
+
+				&:hover {
+					color: @black;
+				}
+			}
+
 
 			&.is-over {
 				padding-top: 3.875em;
@@ -38,6 +63,10 @@
 
 			&:last-child {
 				min-height: 1em;
+
+				> a {
+					display: none;
+				}
 			}
 		}
 

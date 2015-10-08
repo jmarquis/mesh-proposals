@@ -3,7 +3,7 @@ import "../styles/components/SectionList";
 import React from "react";
 import { connect } from "react-redux";
 
-import { rearrangeSections } from "../actions/proposals";
+import { rearrangeSections, deleteSection } from "../actions/proposals";
 
 import SectionListItem from "./SectionListItem";
 
@@ -25,9 +25,13 @@ export default class SectionList extends React.Component {
 			<div className="SectionList">
 				<ul>
 					{ proposal.sectionOrder.map(sectionId => {
-						return (
-							<SectionListItem key={sectionId} sectionId={sectionId} title={proposal.sections[sectionId].title} onDrop={this.handleDrop}/>
-						);
+						if (proposal.sections[sectionId]) {
+							return (
+								<SectionListItem key={sectionId} sectionId={sectionId} title={proposal.sections[sectionId].title} onDrop={this.handleDrop} onDelete={this.handleDelete}/>
+							);
+						} else {
+							return "";
+						}
 					})}
 					<SectionListItem sectionId={null} onDrop={this.handleDrop}/>
 				</ul>
@@ -47,6 +51,14 @@ export default class SectionList extends React.Component {
 			newOrder.push(nextSectionId);
 		}
 		dispatch(rearrangeSections(proposalId, newOrder));
+
+	}
+
+	handleDelete = (sectionId) => {
+
+		const { proposalId, dispatch } = this.props;
+
+		dispatch(deleteSection(proposalId, sectionId));
 
 	}
 

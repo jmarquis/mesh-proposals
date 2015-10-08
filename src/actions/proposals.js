@@ -84,3 +84,10 @@ export function rearrangeSections (proposalId, newOrder) {
 		firebaseRef.child("proposals").child(proposalId).child("sectionOrder").set(newOrder);
 	};
 }
+
+
+export function deleteSection (proposalId, sectionId) {
+	return (dispatch, getState) => {
+		firebaseRef.child("proposals").child(proposalId).child("sections").child(sectionId).remove();
+	};
+}
