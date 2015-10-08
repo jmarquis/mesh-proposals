@@ -41,6 +41,7 @@ export default class Proposal extends React.Component {
 
 		return (
 			<div className={ "Proposal" + (editing ? " editing" : "") } ref="el">
+
 				<header>
 					<div className="title">{proposal.title}</div>
 					{(() => {
@@ -62,6 +63,7 @@ export default class Proposal extends React.Component {
 						}
 					})()}
 				</header>
+
 				<ScrollPane>
 
 					<ProposalDocument/>
@@ -79,7 +81,9 @@ export default class Proposal extends React.Component {
 					</ol>
 
 				</ScrollPane>
+
 				<SectionList/>
+
 			</div>
 		);
 

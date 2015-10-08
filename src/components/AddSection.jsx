@@ -34,7 +34,7 @@ export default class AddSection extends React.Component {
 
 	render () {
 		return (
-			<div className={"AddSection" + (this.state.drawerOpen ? " open" : "")}>
+			<div className={"AddSection" + (this.props.editing ? " editing" : "") + (this.state.drawerOpen ? " open" : "")}>
 				{this.props.editing && <a onClick={this.toggleDrawer}><Icon svg={plusIcon}/></a>}
 				<ul>
 					<li>

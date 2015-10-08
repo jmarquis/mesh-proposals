@@ -4,12 +4,16 @@
 	position: relative;
 	background-color: @lightgray;
 	font-size: 0;
-	height: 2px;
+	height: 1px;
 	transition: height .2s @easing, background-color .2s @easing;
 
-	&.open {
-		height: 128px;
-		background-color: #f5f5f5;
+	&.editing {
+		height: 2px;
+
+		&.open {
+			height: 128px;
+			background-color: #f5f5f5;
+		}
 	}
 
 	> a {
