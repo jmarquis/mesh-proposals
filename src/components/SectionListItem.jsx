@@ -28,10 +28,10 @@ export default class SectionListItem extends React.Component {
 
 	render () {
 
-		const { connectDragSource, connectDropTarget, isOver, isDragging } = this.props;
+		const { connectDragSource, connectDropTarget, active, isOver, isDragging } = this.props;
 
 		return connectDragSource(connectDropTarget(
-			<li className={"SectionListItem" + (isOver ? " is-over" : "") + (isDragging ? " is-dragging" : "")}>
+			<li className={"SectionListItem" + (active ? " active" : "") + (isOver ? " is-over" : "") + (isDragging ? " is-dragging" : "")}>
 				<a className="delete" onClick={this.deleteSection}><Icon svg={trashIcon}/></a>
 				<a className="title">{this.props.title}</a>
 			</li>

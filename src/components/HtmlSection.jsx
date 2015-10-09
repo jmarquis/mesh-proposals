@@ -48,7 +48,7 @@ export default class HtmlSection extends React.Component {
 		const { editing, addSection } = this.props;
 		const { title } = this.state;
 		return (
-			<section className="HtmlSection">
+			<section className="HtmlSection" ref="el">
 				<div className="contents">
 					<h2>
 						{ editing ? <input type="text" ref="titleField" value={title} placeholder="Section Title" onChange={this.setTitle}/> : title }

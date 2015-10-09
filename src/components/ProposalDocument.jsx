@@ -2,9 +2,11 @@ import "../styles/components/ProposalDocument";
 import "../styles/designs/hatteras";
 
 import React from "react";
+import $ from "jquery";
 import { connect } from "react-redux";
 
 import HtmlSection from "./HtmlSection";
+import ScrollPane from "./ScrollPane";
 
 import { updateSection, addSection, rearrangeSections } from "../actions/proposals";
 
@@ -37,15 +39,19 @@ export default class ProposalDocument extends React.Component {
 
 		return (
 			<div className={"ProposalDocument hatteras-design" + (editing ? " editing" : "")}>
-				{(proposal.sectionOrder || []).map((sectionId) => {
-					let section = proposal.sections[sectionId];
-					if (section) {
-						switch (section.type) {
-							case "html": return <HtmlSection key={sectionId} data={section} editing={editing} onChange={this.handleChange.bind(this, sectionId)} addSection={this.addSection.bind(this, sectionId)}/>;
-							default: return "";
-						}
-					}
-				})}
+				<ScrollPane onScroll={this.handleScroll}>
+					<div className="document">
+						{(proposal.sectionOrder || []).map((sectionId) => {
+							let section = proposal.sections[sectionId];
+							if (section) {
+								switch (section.type) {
+									case "html": return <HtmlSection ref={sectionId} key={sectionId} data={section} editing={editing} onChange={this.handleChange.bind(this, sectionId)} addSection={this.addSection.bind(this, sectionId)}/>;
+									default: return "";
+								}
+							}
+						})}
+					</div>
+				</ScrollPane>
 			</div>
 		);
 
@@ -113,6 +119,24 @@ export default class ProposalDocument extends React.Component {
 				}
 			}
 		}
+
+	}
+
+	handleScroll = (event) => {
+
+		const { proposal } = this.props;
+
+		let activeSection = 0;
+		for (let i = 0; i < proposal.sectionOrder.length; i++) {
+			const $section = $(this.refs[proposal.sectionOrder[i]].refs.el);
+			const sectionTop = $section.position().top;
+			if (sectionTop < 0 && sectionTop + $section.height() > 0) {
+				activeSection = i;
+				break;
+			}
+		}
+
+		this.props.onSectionActivate(activeSection);
 
 	}
 

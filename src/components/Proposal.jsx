@@ -33,6 +33,13 @@ import { toggleEditing } from "../actions/proposals";
 })
 export default class Proposal extends React.Component {
 
+	constructor (props) {
+		super(props);
+		this.state = {
+			activeSection: 0
+		};
+	}
+
 	render () {
 
 		const { proposalId, proposal, editing, sectionUpdating, dispatch } = this.props;
@@ -64,29 +71,17 @@ export default class Proposal extends React.Component {
 					})()}
 				</header>
 
-				<ScrollPane>
+				<ProposalDocument onSectionActivate={this.handleSectionActivate}/>
 
-					<ProposalDocument/>
-
-					<ol className="history">
-						{Object.keys(proposal.history).sort().reverse().map((timestamp) => {
-							return (
-								<li key={timestamp}>
-									<Icon svg={getStatusIcon(proposal.history[timestamp].status)}/>
-									<span className="description">{proposal.history[timestamp].status}</span> by <span className="person">{proposal.history[timestamp].person}</span>
-									<time dateTime="{timestamp}">{getRelativeDateTime(timestamp)}</time>
-								</li>
-							);
-						})}
-					</ol>
-
-				</ScrollPane>
-
-				<SectionList/>
+				<SectionList activeSection={this.state.activeSection}/>
 
 			</div>
 		);
 
+	}
+
+	handleSectionActivate = (activeSection) => {
+		this.setState({ activeSection });
 	}
 
 	toggleFullscreen = (editing) => {

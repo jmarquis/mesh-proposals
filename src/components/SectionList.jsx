@@ -20,14 +20,14 @@ import SectionListItem from "./SectionListItem";
 export default class SectionList extends React.Component {
 
 	render () {
-		const { proposal } = this.props;
+		const { proposal, activeSection } = this.props;
 		return (
 			<div className="SectionList">
 				<ul>
-					{ proposal.sectionOrder.map(sectionId => {
+					{ proposal.sectionOrder.map((sectionId, index) => {
 						if (proposal.sections[sectionId]) {
 							return (
-								<SectionListItem key={sectionId} sectionId={sectionId} title={proposal.sections[sectionId].title} onDrop={this.handleDrop} onDelete={this.handleDelete}/>
+								<SectionListItem active={index === activeSection} key={sectionId} sectionId={sectionId} title={proposal.sections[sectionId].title} onDrop={this.handleDrop} onDelete={this.handleDelete}/>
 							);
 						} else {
 							return "";

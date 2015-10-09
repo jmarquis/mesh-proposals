@@ -1,18 +1,35 @@
 @import "../constants";
 
 .ProposalDocument {
-	background-color: #fff;
-	box-shadow: 0 0 10px fade(#222, 10%);
+	display: flex;
 
-	.ProseMirror {
-		padding: 0;
-		border: 0;
-		outline: 0;
-		cursor: text;
+	> .ScrollPane {
+		flex: auto;
 
-		> .ProseMirror-content {
-			padding: 0;
-			outline: 0;
+		> .shadow {
+			left: 40px;
+			right: 40px;
+		}
+
+		> .contents {
+			padding: 10px 40px 30px;
+
+			> .document {
+				background-color: #fff;
+				box-shadow: 0 0 10px fade(#222, 10%);
+
+				.ProseMirror {
+					padding: 0;
+					border: 0;
+					outline: 0;
+					cursor: text;
+
+					> .ProseMirror-content {
+						padding: 0;
+						outline: 0;
+					}
+				}
+			}
 		}
 	}
 }
