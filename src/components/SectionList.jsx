@@ -27,7 +27,7 @@ export default class SectionList extends React.Component {
 					{ proposal.sectionOrder.map((sectionId, index) => {
 						if (proposal.sections[sectionId]) {
 							return (
-								<SectionListItem active={index === activeSection} key={sectionId} sectionId={sectionId} title={proposal.sections[sectionId].title} onDrop={this.handleDrop} onDelete={this.handleDelete}/>
+								<SectionListItem active={index === activeSection} scrollToSection={() => this.props.scrollToSection(index)} key={sectionId} sectionId={sectionId} title={proposal.sections[sectionId].title} onDrop={this.handleDrop} onDelete={this.handleDelete}/>
 							);
 						} else {
 							return "";

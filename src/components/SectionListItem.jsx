@@ -33,7 +33,7 @@ export default class SectionListItem extends React.Component {
 		return connectDragSource(connectDropTarget(
 			<li className={"SectionListItem" + (active ? " active" : "") + (isOver ? " is-over" : "") + (isDragging ? " is-dragging" : "")}>
 				<a className="delete" onClick={this.deleteSection}><Icon svg={trashIcon}/></a>
-				<a className="title">{this.props.title}</a>
+				<a className="title" onClick={this.props.scrollToSection}>{this.props.title}</a>
 			</li>
 		));
 

@@ -71,9 +71,9 @@ export default class Proposal extends React.Component {
 					})()}
 				</header>
 
-				<ProposalDocument onSectionActivate={this.handleSectionActivate}/>
+				<ProposalDocument ref="proposalDocument" onSectionActivate={this.handleSectionActivate}/>
 
-				<SectionList activeSection={this.state.activeSection}/>
+				<SectionList activeSection={this.state.activeSection} scrollToSection={this.scrollToSection}/>
 
 			</div>
 		);
@@ -82,6 +82,10 @@ export default class Proposal extends React.Component {
 
 	handleSectionActivate = (activeSection) => {
 		this.setState({ activeSection });
+	}
+
+	scrollToSection = (sectionIndex) => {
+		this.refs.proposalDocument.refs.wrappedInstance.scrollToSection(sectionIndex);
 	}
 
 	toggleFullscreen = (editing) => {

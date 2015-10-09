@@ -1,7 +1,7 @@
 import "../styles/components/ScrollPane";
 
 import React from "react";
-import debounce from "lodash.debounce";
+import $ from "jquery";
 import throttle from "lodash.throttle";
 
 import { Link } from "react-router";
@@ -34,6 +34,12 @@ export default class ScrollPane extends React.Component {
 
 		if (this.props.onScroll) this.props.onScroll(event);
 
+	}
+
+	scrollTo = (top) => {
+		const $contents = $(this.refs.contents);
+		$contents.scrollTop(top);
+		this.handleScroll({ target: { scrollTop: $contents.scrollTop() }});
 	}
 
 }

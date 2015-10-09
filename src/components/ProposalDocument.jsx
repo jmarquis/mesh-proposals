@@ -29,6 +29,9 @@ export default class ProposalDocument extends React.Component {
 
 	componentDidUpdate () {
 		this.normalizeOrder();
+		if (this.props.destinationSection) {
+			this.scrollToSection(this.props.destinationSection);
+		}
 	}
 
 	render () {
@@ -39,7 +42,7 @@ export default class ProposalDocument extends React.Component {
 
 		return (
 			<div className={"ProposalDocument hatteras-design" + (editing ? " editing" : "")}>
-				<ScrollPane onScroll={this.handleScroll}>
+				<ScrollPane ref="scrollPane" onScroll={this.handleScroll}>
 					<div className="document">
 						{(proposal.sectionOrder || []).map((sectionId) => {
 							let section = proposal.sections[sectionId];
@@ -130,7 +133,7 @@ export default class ProposalDocument extends React.Component {
 		for (let i = 0; i < proposal.sectionOrder.length; i++) {
 			const $section = $(this.refs[proposal.sectionOrder[i]].refs.el);
 			const sectionTop = $section.position().top;
-			if (sectionTop < 0 && sectionTop + $section.height() > 0) {
+			if (sectionTop < 10 && sectionTop + $section.height() > 0) {
 				activeSection = i;
 				break;
 			}
@@ -138,6 +141,12 @@ export default class ProposalDocument extends React.Component {
 
 		this.props.onSectionActivate(activeSection);
 
+	}
+
+	scrollToSection = (sectionIndex) => {
+		const { proposal } = this.props;
+		const $targetSection = $(this.refs[proposal.sectionOrder[sectionIndex]].refs.el);
+		this.refs.scrollPane.scrollTo($targetSection.position().top + $(this.refs.scrollPane.refs.contents).scrollTop());
 	}
 
 }
