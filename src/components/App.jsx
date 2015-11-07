@@ -2,7 +2,7 @@ import "../styles/components/App";
 
 import React from "react";
 import { DragDropContext } from "react-dnd";
-import HTML5Backend from "react-dnd/modules/backends/html5";
+import HTML5Backend from "react-dnd-html5-backend";
 
 import MainMenu from "./MainMenu";
 

@@ -22,10 +22,19 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				exclude: /node_modules(?!\/prosemirror)/,
-				loaders: [
-					"react-hot",
-					"babel?optional[]=es7.decorators&optional[]=es7.classProperties"
-				]
+				loader: "babel",
+				query: {
+					cacheDirectory: true,
+					optional: [
+						"es7.decorators",
+						"es7.classProperties"
+					]
+					/*presets: ["react", "es2015", "stage-2"],
+					plugins: [
+						"transform-decorators",
+						"transform-class-properties"
+					]*/
+				}
 			},
 
 			{
