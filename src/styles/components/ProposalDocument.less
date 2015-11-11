@@ -12,24 +12,32 @@
 		}
 
 		> .contents {
-			padding: 10px 40px 30px;
+			padding: 0 40px;
 
-			> .document {
-				background-color: #fff;
-				box-shadow: 0 0 10px fade(#222, 10%);
+			> .document-wrapper {
+				padding: 10px 0 30px;
 
-				.ProseMirror {
-					padding: 0;
-					border: 0;
-					outline: 0;
-					cursor: text;
+				> .document {
+					background-color: #fff;
+					box-shadow: 0 0 10px fade(#222, 10%);
 
-					> .ProseMirror-content {
+					.ProseMirror {
 						padding: 0;
+						border: 0;
 						outline: 0;
+						cursor: text;
+
+						> .ProseMirror-content {
+							padding: 0;
+							outline: 0;
+						}
 					}
 				}
 			}
 		}
+	}
+
+	&.editing .document > :last-child {
+		padding-bottom: 40px;
 	}
 }

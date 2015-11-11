@@ -85,55 +85,7 @@ export default class Proposal extends React.Component {
 	}
 
 	scrollToSection = (sectionIndex) => {
-		this.refs.proposalDocument.refs.wrappedInstance.scrollToSection(sectionIndex);
-	}
-
-	toggleFullscreen = (editing) => {
-
-		let $el = $(this.refs.el);
-
-		if (editing && $el.css("position") !== "fixed") {
-			this.originalPosition = {
-				top: $el.offset().top,
-				left: $el.offset().left,
-				width: $el.width(),
-				height: $el.height()
-			};
-			$el.css({
-				top: this.originalPosition.top + "px",
-				left: this.originalPosition.left + "px",
-				width: this.originalPosition.width + "px",
-				height: this.originalPosition.height + "px"
-			});
-			setTimeout(() => {
-				$el.css({
-					position: "fixed",
-					"transition-property": "top, left, width, height",
-					top: 0,
-					left: 0,
-					width: "100%",
-					height: "100%"
-				});
-			}, 10);
-		} else if (!editing && $el.css("position") === "fixed") {
-			$el.css({
-				top: this.originalPosition.top + "px",
-				left: this.originalPosition.left + "px",
-				width: this.originalPosition.width + "px",
-				height: this.originalPosition.height + "px"
-			});
-			setTimeout(() => {
-				$el.css({
-					position: "",
-					"transition-property": "",
-					top: "",
-					left: "",
-					width: "",
-					height: ""
-				});
-			}, 1000);
-		}
-
+		this.refs.proposalDocument.getWrappedInstance().scrollToSection(sectionIndex);
 	}
 
 }

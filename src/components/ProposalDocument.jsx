@@ -20,7 +20,7 @@ import { updateSection, addSection, rearrangeSections } from "../actions/proposa
 		editing
 	};
 
-})
+}, null, null, { withRef: true })
 export default class ProposalDocument extends React.Component {
 
 	componentDidMount () {
@@ -43,16 +43,18 @@ export default class ProposalDocument extends React.Component {
 		return (
 			<div className={"ProposalDocument hatteras-design" + (editing ? " editing" : "")}>
 				<ScrollPane ref="scrollPane" onScroll={this.handleScroll}>
-					<div className="document">
-						{(proposal.sectionOrder || []).map((sectionId) => {
-							let section = proposal.sections[sectionId];
-							if (section) {
-								switch (section.type) {
-									case "html": return <HtmlSection ref={sectionId} key={sectionId} data={section} editing={editing} onChange={this.handleChange.bind(this, sectionId)} addSection={this.addSection.bind(this, sectionId)}/>;
-									default: return "";
+					<div className="document-wrapper">
+						<div className="document">
+							{(proposal.sectionOrder || []).map((sectionId) => {
+								let section = proposal.sections[sectionId];
+								if (section) {
+									switch (section.type) {
+										case "html": return <HtmlSection ref={sectionId} key={sectionId} data={section} editing={editing} onChange={this.handleChange.bind(this, sectionId)} addSection={this.addSection.bind(this, sectionId)}/>;
+										default: return "";
+									}
 								}
-							}
-						})}
+							})}
+						</div>
 					</div>
 				</ScrollPane>
 			</div>
@@ -133,7 +135,7 @@ export default class ProposalDocument extends React.Component {
 		for (let i = 0; i < proposal.sectionOrder.length; i++) {
 			const $section = $(this.refs[proposal.sectionOrder[i]].refs.el);
 			const sectionTop = $section.position().top;
-			if (sectionTop < 10 && sectionTop + $section.height() > 0) {
+			if (sectionTop < 40 && sectionTop + $section.height() > 40) {
 				activeSection = i;
 				break;
 			}
@@ -146,7 +148,7 @@ export default class ProposalDocument extends React.Component {
 	scrollToSection = (sectionIndex) => {
 		const { proposal } = this.props;
 		const $targetSection = $(this.refs[proposal.sectionOrder[sectionIndex]].refs.el);
-		this.refs.scrollPane.scrollTo($targetSection.position().top + $(this.refs.scrollPane.refs.contents).scrollTop());
+		this.refs.scrollPane.scrollTo($targetSection.position().top - 30 + $(this.refs.scrollPane.refs.contents).scrollTop());
 	}
 
 }
